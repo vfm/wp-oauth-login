@@ -16,10 +16,63 @@ use WP_Error;
  * Renders SSO login button on WordPress login page
  */
 final class LoginButton {
+    /**
+     * GET parameter to bypass SSO redirect
+     */
+    public const BYPASS_PARAM = 'wp_login';
+
     public function __construct() {
+        add_action('login_init', $this->maybeRedirectToSSO(...), 5);
         add_action('login_footer', $this->renderButton(...));
         add_action('login_enqueue_scripts', $this->enqueueStyles(...));
         add_filter('wp_login_errors', $this->addOAuthError(...), 10, 2);
+    }
+
+    /**
+     * Redirect to SSO if force_sso_redirect is enabled
+     */
+    private function maybeRedirectToSSO(): void {
+        // Only on login action (not logout, register, etc.)
+        $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : 'login';
+        if (!in_array($action, ['login', ''], true)) {
+            return;
+        }
+
+        // Don't redirect if already logged in
+        if (is_user_logged_in()) {
+            return;
+        }
+
+        // Don't redirect if force_sso_redirect is disabled
+        if (!Options::get('force_sso_redirect')) {
+            return;
+        }
+
+        // Don't redirect if bypass parameter is set
+        if (isset($_GET[self::BYPASS_PARAM]) && $_GET[self::BYPASS_PARAM] === '1') {
+            return;
+        }
+
+        // Don't redirect if there's an OAuth error (show the error on login page)
+        if (Options::getLoginError() !== null) {
+            // Put it back so it gets displayed
+            return;
+        }
+
+        // Don't redirect on POST requests (form submissions)
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            return;
+        }
+
+        // Get redirect_to parameter
+        $redirectTo = isset($_GET['redirect_to']) 
+            ? sanitize_url($_GET['redirect_to']) 
+            : admin_url();
+
+        // Redirect to SSO
+        $loginUrl = Options::getLoginUrl($redirectTo);
+        wp_safe_redirect($loginUrl);
+        exit;
     }
 
     /**

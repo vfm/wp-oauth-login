@@ -36,6 +36,7 @@ final class Options {
         'grant_type'                => 'authorization_code',
         'show_on_login_page'        => 0,
         'button_text'               => 'Mit SSO anmelden',
+        'force_sso_redirect'        => 0,
         // Attribute Mapping
         'attr_username'             => 'sub',
         'attr_email'                => 'email',
@@ -145,7 +146,8 @@ final class Options {
         $checkboxFields = [
             'credentials_in_header', 'credentials_in_body', 'send_state', 
             'send_nonce', 'send_scope_in_body', 'show_on_login_page',
-            'enable_role_mapping', 'keep_existing_roles', 'deny_unmapped_roles'
+            'enable_role_mapping', 'keep_existing_roles', 'deny_unmapped_roles',
+            'force_sso_redirect'
         ];
         foreach ($checkboxFields as $field) {
             $sanitized[$field] = isset($input[$field]) ? 1 : 0;

@@ -741,6 +741,25 @@ final class SettingsPage {
                                placeholder="Mit SSO anmelden">
                     </td>
                 </tr>
+                <tr>
+                    <th scope="row"><?php esc_html_e('Auto-Redirect', 'wp-oauth-login'); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wp_oauth_login_options[force_sso_redirect]" value="1" 
+                                   <?php checked(Options::get('force_sso_redirect'), 1); ?>>
+                            <?php esc_html_e('Automatisch zu SSO weiterleiten (Login-Seite überspringen)', 'wp-oauth-login'); ?>
+                        </label>
+                        <p class="description">
+                            <?php 
+                            printf(
+                                /* translators: %s: URL parameter */
+                                esc_html__('Um die Weiterleitung zu umgehen und das normale Login-Formular anzuzeigen, füge %s zur URL hinzu.', 'wp-oauth-login'),
+                                '<code>?wp_login=1</code>'
+                            ); 
+                            ?>
+                        </p>
+                    </td>
+                </tr>
             </table>
         </div>
         <?php

@@ -80,6 +80,18 @@ Beispiele:
 - Option: Login verweigern wenn keine Rolle gemappt werden kann
 - Unterstützt Zitadel Projekt-Rollen (`urn:zitadel:iam:org:project:roles`)
 
+### Auto-Redirect zu SSO
+
+Mit der Option "Automatisch zu SSO weiterleiten" wird die WordPress Login-Seite übersprungen und direkt zum OIDC Provider weitergeleitet.
+
+**Bypass-Parameter:** Um im Fehlerfall trotzdem das normale WordPress Login-Formular anzuzeigen:
+
+```
+https://example.com/wp-login.php?wp_login=1
+```
+
+Der Parameter `?wp_login=1` unterdrückt die automatische Weiterleitung.
+
 ## URLs (Entwicklung)
 
 | Service | URL |
