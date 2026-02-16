@@ -132,6 +132,7 @@ final class SettingsPage {
      */
     private function renderTemplate(): void {
         $callbackUrl = Options::getCallbackUrl();
+        $postLogoutUrl = home_url('/');
         $testUrl = add_query_arg([
             'wp-oauth-login-start' => '1',
             'test' => '1',
@@ -161,10 +162,19 @@ final class SettingsPage {
             <?php settings_errors('wp_oauth_login_messages'); ?>
 
             <div class="callback-url-box">
-                <strong><?php esc_html_e('Callback / Redirect URL', 'wp-oauth-login'); ?></strong>
+                <strong><?php esc_html_e('Callback / Redirect URI', 'wp-oauth-login'); ?></strong>
                 <p><?php esc_html_e('Verwende diese URL als Redirect URI bei deinem OAuth Provider:', 'wp-oauth-login'); ?></p>
                 <code><?php echo esc_html($callbackUrl); ?></code>
                 <button type="button" class="button button-small" onclick="navigator.clipboard.writeText('<?php echo esc_js($callbackUrl); ?>'); this.textContent='Kopiert!'; setTimeout(() => this.textContent='Kopieren', 2000);">
+                    <?php esc_html_e('Kopieren', 'wp-oauth-login'); ?>
+                </button>
+            </div>
+
+            <div class="callback-url-box" style="margin-top: 10px;">
+                <strong><?php esc_html_e('Post Logout Redirect URI', 'wp-oauth-login'); ?></strong>
+                <p><?php esc_html_e('Verwende diese URL als Post Logout URI bei deinem OAuth Provider (für Single Logout):', 'wp-oauth-login'); ?></p>
+                <code><?php echo esc_html($postLogoutUrl); ?></code>
+                <button type="button" class="button button-small" onclick="navigator.clipboard.writeText('<?php echo esc_js($postLogoutUrl); ?>'); this.textContent='Kopiert!'; setTimeout(() => this.textContent='Kopieren', 2000);">
                     <?php esc_html_e('Kopieren', 'wp-oauth-login'); ?>
                 </button>
             </div>

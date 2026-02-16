@@ -14,6 +14,7 @@ use WPOAuthLogin\Admin\DashboardWidget;
 use WPOAuthLogin\Admin\Assets;
 use WPOAuthLogin\Admin\UserProfile;
 use WPOAuthLogin\Frontend\LoginButton;
+use WPOAuthLogin\Frontend\LogoutHandler;
 
 /**
  * Main plugin orchestrator using Singleton pattern
@@ -29,6 +30,7 @@ final class Plugin {
     private readonly Assets $assets;
     private readonly UserProfile $userProfile;
     private readonly LoginButton $loginButton;
+    private readonly LogoutHandler $logoutHandler;
 
     /**
      * Get singleton instance
@@ -52,6 +54,7 @@ final class Plugin {
         $this->assets = new Assets();
         $this->userProfile = new UserProfile();
         $this->loginButton = new LoginButton();
+        $this->logoutHandler = new LogoutHandler();
 
         $this->initHooks();
     }

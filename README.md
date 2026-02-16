@@ -10,6 +10,8 @@ WordPress Plugin für Single Sign-On (SSO) mit OAuth 2.0 / OpenID Connect (OIDC)
 - **Attribut-Mapping** - Flexible Zuordnung von OAuth Claims zu WordPress-Benutzerdaten
 - **Custom Attribute Mapping** - Beliebige Claims zu User Meta Feldern mappen (inkl. Zitadel Metadata Support)
 - **Role Mapping** - Automatische Rollenzuweisung basierend auf OAuth Claims
+- **Single Logout** - Abmeldung bei WordPress meldet auch beim OIDC Provider ab
+- **Auto-Redirect** - Optionale automatische Weiterleitung zum SSO (WordPress Login überspringen)
 - **Login-Seiten-Integration** - Optionaler SSO-Button auf der WordPress Login-Seite
 - **Claims-Test** - Integrierter Test-Modus zum Anzeigen aller verfügbaren Claims
 - **Zitadel-Unterstützung** - Spezielle Unterstützung für Zitadel Metadata (Base64-kodiert)
@@ -45,7 +47,9 @@ make init
 ### OAuth Provider einrichten
 
 1. Beim OAuth Provider eine neue Anwendung erstellen
-2. Als **Redirect URI** die angezeigte Callback URL eintragen
+2. Folgende URLs beim Provider eintragen (werden auf der Einstellungsseite angezeigt):
+   - **Redirect URI**: `https://example.com/wp-json/wp-oauth-login/v1/callback`
+   - **Post Logout Redirect URI**: `https://example.com/` (für Single Logout)
 3. Client ID und Client Secret in den Plugin-Einstellungen eintragen
 
 ### OIDC Discovery (empfohlen)

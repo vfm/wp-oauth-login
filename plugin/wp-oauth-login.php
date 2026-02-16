@@ -83,7 +83,9 @@ require_once WP_OAUTH_LOGIN_PLUGIN_DIR . 'includes/RestApi.php';
 require_once WP_OAUTH_LOGIN_PLUGIN_DIR . 'includes/Admin/SettingsPage.php';
 require_once WP_OAUTH_LOGIN_PLUGIN_DIR . 'includes/Admin/DashboardWidget.php';
 require_once WP_OAUTH_LOGIN_PLUGIN_DIR . 'includes/Admin/Assets.php';
+require_once WP_OAUTH_LOGIN_PLUGIN_DIR . 'includes/Admin/UserProfile.php';
 require_once WP_OAUTH_LOGIN_PLUGIN_DIR . 'includes/Frontend/LoginButton.php';
+require_once WP_OAUTH_LOGIN_PLUGIN_DIR . 'includes/Frontend/LogoutHandler.php';
 
 /**
  * Initialize the plugin
